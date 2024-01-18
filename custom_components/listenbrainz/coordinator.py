@@ -12,15 +12,15 @@ from homeassistant.helpers.update_coordinator import (
 from homeassistant.exceptions import ConfigEntryAuthFailed
 
 from .api import (
-    IntegrationBlueprintApiClient,
-    IntegrationBlueprintApiClientAuthenticationError,
-    IntegrationBlueprintApiClientError,
+    ListenBrainzApiClient,
+    ListenBrainzApiClientAuthenticationError,
+    ListenBrainzApiClientError,
 )
 from .const import DOMAIN, LOGGER
 
 
 # https://developers.home-assistant.io/docs/integration_fetching_data#coordinated-single-api-poll-for-data-for-all-entities
-class BlueprintDataUpdateCoordinator(DataUpdateCoordinator):
+class ListenBrainzDataUpdateCoordinator(DataUpdateCoordinator):
     """Class to manage fetching data from the API."""
 
     config_entry: ConfigEntry
@@ -28,7 +28,7 @@ class BlueprintDataUpdateCoordinator(DataUpdateCoordinator):
     def __init__(
         self,
         hass: HomeAssistant,
-        client: IntegrationBlueprintApiClient,
+        client: ListenBrainzApiClient,
     ) -> None:
         """Initialize."""
         self.client = client
@@ -36,14 +36,14 @@ class BlueprintDataUpdateCoordinator(DataUpdateCoordinator):
             hass=hass,
             logger=LOGGER,
             name=DOMAIN,
-            update_interval=timedelta(minutes=5),
+            update_interval=timedelta(seconds=30),
         )
 
     async def _async_update_data(self):
         """Update data via library."""
         try:
             return await self.client.async_get_data()
-        except IntegrationBlueprintApiClientAuthenticationError as exception:
+        except ListenBrainzApiClientAuthenticationError as exception:
             raise ConfigEntryAuthFailed(exception) from exception
-        except IntegrationBlueprintApiClientError as exception:
+        except ListenBrainzApiClientError as exception:
             raise UpdateFailed(exception) from exception

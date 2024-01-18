@@ -8,35 +8,41 @@ import aiohttp
 import async_timeout
 
 
-class IntegrationBlueprintApiClientError(Exception):
+class ListenBrainzApiClientError(Exception):
     """Exception to indicate a general API error."""
 
 
-class IntegrationBlueprintApiClientCommunicationError(
-    IntegrationBlueprintApiClientError
+class ListenBrainzApiClientCommunicationError(
+    ListenBrainzApiClientError
 ):
     """Exception to indicate a communication error."""
 
 
-class IntegrationBlueprintApiClientAuthenticationError(
-    IntegrationBlueprintApiClientError
+class ListenBrainzApiClientAuthenticationError(
+    ListenBrainzApiClientError
 ):
     """Exception to indicate an authentication error."""
 
 
-class IntegrationBlueprintApiClient:
+class ListenBrainzApiClient:
     """Sample API Client."""
 
     def __init__(
         self,
         username: str,
-        password: str,
+        token: str,
         session: aiohttp.ClientSession,
     ) -> None:
         """Sample API Client."""
         self._username = username
-        self._password = password
+        self._token = token
         self._session = session
+
+    async def validate_token(self) -> any:
+        """Validate Token"""
+        return await self._api_wrapper(
+            method="get", url="https://api.listenbrainz.org/1/validate-token", headers={"Authorization": f"Token {self._token}"}
+        )
 
     async def async_get_data(self) -> any:
         """Get data from the API."""
@@ -69,22 +75,22 @@ class IntegrationBlueprintApiClient:
                     headers=headers,
                     json=data,
                 )
-                if response.status in (401, 403):
-                    raise IntegrationBlueprintApiClientAuthenticationError(
+                if response.status in (400, 401, 403):
+                    raise ListenBrainzApiClientAuthenticationError(
                         "Invalid credentials",
                     )
                 response.raise_for_status()
                 return await response.json()
 
         except asyncio.TimeoutError as exception:
-            raise IntegrationBlueprintApiClientCommunicationError(
+            raise ListenBrainzApiClientCommunicationError(
                 "Timeout error fetching information",
             ) from exception
         except (aiohttp.ClientError, socket.gaierror) as exception:
-            raise IntegrationBlueprintApiClientCommunicationError(
+            raise ListenBrainzApiClientCommunicationError(
                 "Error fetching information",
             ) from exception
         except Exception as exception:  # pylint: disable=broad-except
-            raise IntegrationBlueprintApiClientError(
+            raise ListenBrainzApiClientError(
                 "Something really wrong happened!"
             ) from exception

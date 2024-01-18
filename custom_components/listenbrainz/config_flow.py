@@ -3,20 +3,20 @@ from __future__ import annotations
 
 import voluptuous as vol
 from homeassistant import config_entries
-from homeassistant.const import CONF_PASSWORD, CONF_USERNAME
+from homeassistant.const import CONF_API_TOKEN, CONF_USERNAME
 from homeassistant.helpers import selector
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
 
 from .api import (
-    IntegrationBlueprintApiClient,
-    IntegrationBlueprintApiClientAuthenticationError,
-    IntegrationBlueprintApiClientCommunicationError,
-    IntegrationBlueprintApiClientError,
+    ListenBrainzApiClient,
+    ListenBrainzApiClientAuthenticationError,
+    ListenBrainzApiClientCommunicationError,
+    ListenBrainzApiClientError,
 )
 from .const import DOMAIN, LOGGER
 
 
-class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
+class ListenBrainzFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
     """Config flow for Blueprint."""
 
     VERSION = 1
@@ -31,15 +31,15 @@ class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             try:
                 await self._test_credentials(
                     username=user_input[CONF_USERNAME],
-                    password=user_input[CONF_PASSWORD],
+                    token=user_input[CONF_API_TOKEN],
                 )
-            except IntegrationBlueprintApiClientAuthenticationError as exception:
+            except ListenBrainzApiClientAuthenticationError as exception:
                 LOGGER.warning(exception)
                 _errors["base"] = "auth"
-            except IntegrationBlueprintApiClientCommunicationError as exception:
+            except ListenBrainzApiClientCommunicationError as exception:
                 LOGGER.error(exception)
                 _errors["base"] = "connection"
-            except IntegrationBlueprintApiClientError as exception:
+            except ListenBrainzApiClientError as exception:
                 LOGGER.exception(exception)
                 _errors["base"] = "unknown"
             else:
@@ -60,7 +60,7 @@ class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                             type=selector.TextSelectorType.TEXT
                         ),
                     ),
-                    vol.Required(CONF_PASSWORD): selector.TextSelector(
+                    vol.Required(CONF_API_TOKEN): selector.TextSelector(
                         selector.TextSelectorConfig(
                             type=selector.TextSelectorType.PASSWORD
                         ),
@@ -70,11 +70,11 @@ class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             errors=_errors,
         )
 
-    async def _test_credentials(self, username: str, password: str) -> None:
+    async def _test_credentials(self, username: str, token: str) -> None:
         """Validate credentials."""
-        client = IntegrationBlueprintApiClient(
+        client = ListenBrainzApiClient(
             username=username,
-            password=password,
+            token=token,
             session=async_create_clientsession(self.hass),
         )
-        await client.async_get_data()
+        await client.validate_token()
