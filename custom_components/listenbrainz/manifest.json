@@ -1,0 +1,16 @@
+{
+  "domain": "listenbrainz",
+  "name": "ListenBrainz",
+  "codeowners": [
+    "@Weissnix4711"
+  ],
+  "config_flow": true,
+  "documentation": "https://github.com/Weissnix4711/hass-listenbrainz",
+  "integration_type": "service",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/Weissnix4711/hass-listenbrainz/issues",
+  "version": "0.0.1",
+  "requirements": [
+    "pylistenbrainz==0.5.1"
+  ]
+}

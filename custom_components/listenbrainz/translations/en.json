@@ -1,0 +1,33 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "description": "If you need help with the configuration have a look here: https://github.com/Weissnix4711/hass_listenbrainz",
+                "data": {
+                    "username": "Username",
+                    "api_token": "API Token"
+                }
+            }
+        },
+        "error": {
+            "unknown_user": "Unknown username",
+            "invalid_token": "Invalid Token",
+            "api": "Unknown API Error occurred"
+        },
+        "abort": {
+            "already_configured": "[%key:common::config_flow::abort::already_configured_service%]"
+        }
+    },
+    "entity": {
+        "sensor": {
+            "total_listens": {
+                "name": "Total Listens"
+            }
+        },
+        "media_player": {
+            "playing_now": {
+                "name": "Currently Playing"
+            }
+        }
+    }
+}
