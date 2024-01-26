@@ -10,7 +10,7 @@ from homeassistant.helpers.update_coordinator import (
     UpdateFailed,
 )
 
-from pylistenbrainz.errors import ListenBrainzAPIException
+from liblistenbrainz.errors import ListenBrainzAPIException
 
 from .api import (
     ListenBrainzApiClient,

@@ -6,7 +6,7 @@ from homeassistant import config_entries
 from homeassistant.const import CONF_API_TOKEN, CONF_USERNAME
 from homeassistant.helpers import selector
 
-from pylistenbrainz.errors import ListenBrainzAPIException
+from liblistenbrainz.errors import ListenBrainzAPIException
 
 from .api import (
     ListenBrainzApiClient,

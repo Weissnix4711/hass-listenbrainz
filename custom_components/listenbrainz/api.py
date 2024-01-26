@@ -7,8 +7,8 @@ from dataclasses import dataclass
 
 from homeassistant.core import HomeAssistant
 
-from pylistenbrainz import ListenBrainz, Listen
-from pylistenbrainz.errors import (
+from liblistenbrainz import ListenBrainz, Listen
+from liblistenbrainz.errors import (
     ListenBrainzAPIException,
     ListenBrainzException,
     InvalidAuthTokenException,
