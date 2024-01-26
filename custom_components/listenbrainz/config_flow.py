@@ -33,10 +33,10 @@ class ListenBrainzFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                     username=user_input[CONF_USERNAME],
                     token=user_input.get(CONF_API_TOKEN, None),
                 )
-            except ListenBrainzUnknownUserException as e:
+            except ListenBrainzUnknownUserException:
                 LOGGER.warning("Could not complete setup: User '%s' does not exist", user_input[CONF_USERNAME])
                 _errors[CONF_USERNAME] = "unknown_user"
-            except ListenBrainzInvalidTokenException as e:
+            except ListenBrainzInvalidTokenException:
                 LOGGER.warning("Could not complete setup: Invalid token")
                 _errors[CONF_API_TOKEN] = "invalid_token"
             except ListenBrainzAPIException as e:
