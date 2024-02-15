@@ -105,7 +105,7 @@ class ListenBrainzApiClient:
         if self._token is not None:
             try:
                 response = await self._hass.async_add_executor_job(
-                    self._submit_listen(listen)
+                    self._submit_listen, listen
                 )
             except InvalidSubmitListensPayloadException as e:
                 raise e
@@ -139,4 +139,4 @@ class ListenBrainzApiClient:
         return c
 
     def _submit_listen(self, listen: Listen) -> any:
-        return self.client.submit_single_listen(listen=Listen)
+        return self.client.submit_single_listen(listen=listen)
