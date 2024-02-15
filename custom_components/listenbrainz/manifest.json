@@ -6,7 +6,6 @@
   ],
   "config_flow": true,
   "documentation": "https://github.com/Weissnix4711/hass-listenbrainz",
-  "homeassistant": "2023.12.0",
   "integration_type": "service",
   "iot_class": "cloud_polling",
   "issue_tracker": "https://github.com/Weissnix4711/hass-listenbrainz/issues",
