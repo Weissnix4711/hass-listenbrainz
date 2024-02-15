@@ -29,5 +29,51 @@
                 "name": "Currently Playing"
             }
         }
+    },
+    "exceptions": {
+        "api_exception": {
+            "message": "API exception occured. Returned code {return_code}."
+        },
+        "invalid_submit_payload": {
+            "message": "Invalid payload for submission."
+        },
+        "missing_token": {
+            "message": "No API token set for user {username}."
+        }
+    },
+    "services": {
+        "submit_listen": {
+            "name": "Submit listen",
+            "description": "Submit a single listen",
+            "fields": {
+                "config_entry": {
+                    "name": "Config Entry",
+                    "description": "The config entry to use for this service"
+                },
+                "track_name": {
+                    "name": "Track name",
+                    "description": "Name of the track",
+                    "example": "Fuck These Fucking Fascists"
+                },
+                "artist_name": {
+                    "name": "Artist name",
+                    "description": "Name of the artist",
+                    "example": "The Muslims"
+                },
+                "listened_at": {
+                    "name": "Listened at",
+                    "description": "Unix time when the track was listened to. Defaults to the current time."
+                },
+                "release_name": {
+                    "name": "Release name",
+                    "description": "Name of the release this recording was played from"
+                },
+                "additional_info": {
+                    "name": "Additiona info",
+                    "description": "Additional metadata which may help better correlate listening data to the MusicBrainz database. Only available in YAML mode.",
+                    "example": "artist_mbids:\n  - 75042058-1159-44b5-a5bd-f294b8ae7cf3\ntrack_mbid: 3cab5ab7-ec3a-4f66-912f-1d825ad0f444\nsubmission_client: Home Assistant"
+                }
+            }
+        }
     }
 }

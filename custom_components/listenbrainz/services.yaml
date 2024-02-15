@@ -1,0 +1,28 @@
+submit_listen:
+  fields:
+    config_entry:
+      required: true
+      selector:
+        config_entry:
+          integration: listenbrainz
+    track_name:
+      required: true
+      selector:
+        text:
+          type: text
+    artist_name:
+      required: true
+      selector:
+        text:
+          type: text
+    listened_at:
+      required: false
+      selector:
+        datetime:
+    release_name:
+      required: false
+      selector:
+        text:
+          type: text
+    additional_info:
+      required: false
