@@ -24,10 +24,10 @@ PLATFORMS: list[Platform] = [Platform.SENSOR, Platform.MEDIA_PLAYER]
 
 
 async def async_setup(hass: HomeAssistant, config: ConfigType):
-    """Set up ListenBrainz integration"""
+    """Set up ListenBrainz integration."""
 
     async def submit_listen(call: ServiceCall):
-        """Submit a single listen"""
+        """Submit a single listen."""
         client: ListenBrainzApiClient = hass.data[DOMAIN][
             call.data["config_entry"]
         ].client
