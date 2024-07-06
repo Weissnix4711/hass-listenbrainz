@@ -134,8 +134,12 @@ class ListenBrainzApiClient:
     def _get_playing_now(self) -> ListenBrainzListen | None:
         c: ListenBrainzListen = self.client.get_playing_now(self._username)
         if c is not None:
-            c.duration = round(c.additional_info.get("duration_ms", None) / 1000)
-            c.music_service = c.additional_info.get("music_service", None)
+            info = c.additional_info
+            if "duration_ms" in info:
+                c.duration = round(info.get("duration_ms") / 1000)
+            else:
+                c.duration = info.get("duration", None)
+            c.music_service = info.get("music_service", None)
         return c
 
     def _submit_listen(self, listen: Listen) -> any:
