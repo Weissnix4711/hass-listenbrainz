@@ -1,0 +1,79 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "description": "Se precisar de ajuda com a configuração, veja aqui: https://github.com/Weissnix4711/hass-listenbrainz",
+                "data": {
+                    "username": "Nome de utilizador",
+                    "api_token": "Token da API"
+                }
+            }
+        },
+        "error": {
+            "unknown_user": "Nome de utilizador desconhecido",
+            "invalid_token": "Token inválido",
+            "api": "Ocorreu um erro desconhecido na API"
+        },
+        "abort": {
+            "already_configured": "[%key:common::config_flow::abort::already_configured_service%]"
+        }
+    },
+    "entity": {
+        "sensor": {
+            "total_listens": {
+                "name": "Total de Escutas"
+            }
+        },
+        "media_player": {
+            "playing_now": {
+                "name": "A Tocar Agora"
+            }
+        }
+    },
+    "exceptions": {
+        "api_exception": {
+            "message": "Ocorreu uma exceção na API. Código retornado {return_code}."
+        },
+        "invalid_submit_payload": {
+            "message": "Carga útil de submissão inválida."
+        },
+        "missing_token": {
+            "message": "Nenhum token de API definido para o utilizador {username}."
+        }
+    },
+    "services": {
+        "submit_listen": {
+            "name": "Submeter escuta",
+            "description": "Submete uma única escuta",
+            "fields": {
+                "config_entry": {
+                    "name": "Entrada de Configuração",
+                    "description": "A entrada de configuração a utilizar para este serviço"
+                },
+                "track_name": {
+                    "name": "Nome da faixa",
+                    "description": "Nome da faixa",
+                    "example": "Fuck These Fucking Fascists"
+                },
+                "artist_name": {
+                    "name": "Nome do artista",
+                    "description": "Nome do artista",
+                    "example": "The Muslims"
+                },
+                "listened_at": {
+                    "name": "Ouvido em",
+                    "description": "Hora Unix em que a faixa foi ouvida. Por defeito, utiliza a hora atual."
+                },
+                "release_name": {
+                    "name": "Nome do álbum",
+                    "description": "Nome do álbum de onde esta gravação foi tocada"
+                },
+                "additional_info": {
+                    "name": "Informação adicional",
+                    "description": "Metadados adicionais que podem ajudar a correlacionar melhor os dados de escuta à base de dados MusicBrainz. Apenas disponível no modo YAML.",
+                    "example": "artist_mbids:\n  - 75042058-1159-44b5-a5bd-f294b8ae7cf3\ntrack_mbid: 3cab5ab7-ec3a-4f66-912f-1d825ad0f444\nsubmission_client: Home Assistant"
+                }
+            }
+        }
+    }
+}
