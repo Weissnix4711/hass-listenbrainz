@@ -6,7 +6,7 @@ from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.device_registry import DeviceEntryType
 
-from .const import ATTRIBUTION, DOMAIN, NAME, VERSION
+from .const import ATTRIBUTION, DOMAIN, NAME
 from .coordinator import ListenBrainzDataUpdateCoordinator
 
 
@@ -31,5 +31,4 @@ class ListenBrainzEntity(CoordinatorEntity):
             model=f"{NAME} {coordinator.username}",
             manufacturer=NAME,
             entry_type=DeviceEntryType.SERVICE,
-            sw_version=VERSION,
         )
