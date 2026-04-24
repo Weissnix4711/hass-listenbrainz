@@ -34,7 +34,8 @@ class ListenBrainzFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                     token=user_input.get(CONF_API_TOKEN, None),
                 )
             except ListenBrainzUnknownUserException:
-                LOGGER.warning("Could not complete setup: User '%s' does not exist", user_input[CONF_USERNAME])
+                LOGGER.warning(
+                    "Could not complete setup: User '%s' does not exist", user_input[CONF_USERNAME])
                 _errors[CONF_USERNAME] = "unknown_user"
             except ListenBrainzInvalidTokenException:
                 LOGGER.warning("Could not complete setup: Invalid token")
@@ -69,6 +70,9 @@ class ListenBrainzFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                 }
             ),
             errors=_errors,
+            description_placeholders={
+                "documentation_url": "https://github.com/Weissnix4711/hass-listenbrainz"
+            }
         )
 
     async def _test_credentials(self, username: str, token: str | None) -> None:
