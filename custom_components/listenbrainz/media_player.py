@@ -79,3 +79,9 @@ class ListenBrainzMediaPlayer(ListenBrainzEntity, MediaPlayerEntity):
         self._attr_media_album_name = ( (data.release_name if not None else None) if data is not None else None )
         self._attr_media_duration = ( (data.duration if not None else None if not None else None) if data is not None else None )
         self._attr_source = ( (data.music_service if not None else None if not None else None) if data is not None else None )
+        self._attr_media_image_url = (
+            f"https://coverartarchive.org/release/{data.release_mbid}/front-250"
+            if data is not None and data.release_mbid is not None
+            else None
+        )
+        self._attr_media_image_remotely_accessible = self._attr_media_image_url is not None
