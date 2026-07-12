@@ -1,0 +1,79 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "description": "Wenn du Hilfe bei der Konfiguration benötigst, schau hier nach: {documentation_url}",
+                "data": {
+                    "username": "Benutzername",
+                    "api_token": "API-Token"
+                }
+          }
+    },
+        "error": {
+            "unknown_user": "Unbekannter Benutzername",
+            "invalid_token": "Ungültiges Token",
+            "api": "Ein unbekannter API-Fehler ist aufgetreten"
+        },
+        "abort": {
+            "already_configured": "[%key:common::config_flow::abort::already_configured_service%]"
+        }
+    },
+    "entity": {
+        "sensor": {
+            "total_listens": {
+                "name": "Wiedergaben insgesamt"
+            }
+        },
+        "media_player": {
+            "playing_now": {
+                "name": "Aktuelle Wiedergabe"
+            }
+        }
+    },
+    "exceptions": {
+        "api_exception": {
+            "message": "API-Ausnahme aufgetreten. Rückgabecode {return_code}."
+        },
+        "invalid_submit_payload": {
+            "message": "Ungültige Nutzdaten für die Übermittlung."
+        },
+        "missing_token": {
+            "message": "Kein API-Token für den Benutzer {username} festgelegt."
+        }
+    },
+    "services": {
+        "submit_listen": {
+            "name": "Wiedergabe übermitteln",
+            "description": "Übermittelt eine einzelne Wiedergabe",
+            "fields": {
+                "config_entry": {
+                    "name": "Konfigurationseintrag",
+                    "description": "Der für diesen Dienst zu verwendende Konfigurationseintrag"
+                },
+                "track_name": {
+                    "name": "Titelname",
+                    "description": "Name des Titels",
+                    "example": "Fuck These Fucking Fascists"
+                },
+                "artist_name": {
+                    "name": "Künstlername",
+                    "description": "Name des Künstlers",
+                    "example": "The Muslims"
+                },
+                "listened_at": {
+                    "name": "Gehört am",
+                    "description": "Unix-Zeitstempel, zu dem der Titel gehört wurde. Standardmäßig die aktuelle Uhrzeit."
+                },
+                "release_name": {
+                    "name": "Veröffentlichungsname",
+                    "description": "Name der Veröffentlichung (Album), von der dieser Titel abgespielt wurde"
+                },
+                "additional_info": {
+                    "name": "Zusätzliche Informationen",
+                    "description": "Zusätzliche Metadaten, die helfen können, die Wiedergabedaten besser mit der MusicBrainz-Datenbank abzugleichen. Nur im YAML-Modus verfügbar.",
+                    "example": "artist_mbids:\n  - 75042058-1159-44b5-a5bd-f294b8ae7cf3\ntrack_mbid: 3cab5ab7-ec3a-4f66-912f-1d825ad0f444\nsubmission_client: Home Assistant"
+                }
+            }
+        }
+    }
+}
